@@ -6,27 +6,29 @@
     <title>RAGS LAGOS | Premium Denim</title>
     <style>
         :root {
-            --navy: #000c1a; /* Deeper for luxury */
             --orange: #FF5F1F;
-            --ivory: #ffffff;
+            --black: #000000;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
         
         body { 
             font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; 
-            background-color: #000; /* Dark background for the 'Kult' vibe */
+            background-color: var(--black); 
             color: #fff; 
             line-height: 1.6;
             overflow-x: hidden;
         }
+
+        /* Smooth scroll for navigation */
+        html { scroll-behavior: smooth; }
 
         .reveal { opacity: 0; transform: translateY(30px); transition: all 1s ease-out; }
         .reveal.active { opacity: 1; transform: translateY(0); }
 
         header { 
             background: rgba(0, 0, 0, 0.9); 
-            padding: 15px 5%; 
+            padding: 10px 5%; 
             display: flex; 
             justify-content: space-between; 
             align-items: center; 
@@ -37,10 +39,10 @@
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
 
-        .logo-img { height: 60px; width: auto; }
+        .logo-img { height: 50px; width: auto; }
         
-        nav ul { list-style: none; display: flex; gap: 30px; align-items: center; }
-        nav ul li { font-size: 0.65rem; text-transform: uppercase; letter-spacing: 3px; font-weight: bold; cursor: pointer; color: #fff; }
+        nav ul { list-style: none; display: flex; gap: 25px; align-items: center; }
+        nav ul li a { font-size: 0.65rem; text-transform: uppercase; letter-spacing: 3px; font-weight: bold; cursor: pointer; color: #fff; text-decoration: none; }
 
         .hero { 
             height: 100vh; 
@@ -48,46 +50,49 @@
             align-items: center; 
             justify-content: center; 
             text-align: center;
-            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1541099649105-f69ad21f3246?q=80&w=2574&auto=format&fit=crop');
+            /* YOUR ROCKSTAR IMAGE APPLIED AS BACKGROUND */
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.7)), url('https://i.postimg.cc/908tYxJj/Whats-App-Image-2025-12-27-at-7-15-09-PM.jpg');
             background-size: cover;
             background-position: center;
             padding: 0 10%;
         }
 
-        .hero-content h2 { font-size: 0.8rem; letter-spacing: 12px; text-transform: uppercase; margin-bottom: 20px; color: var(--orange); }
-        .hero-content h1 { font-size: clamp(2.5rem, 8vw, 5rem); font-family: 'Georgia', serif; margin-bottom: 30px; font-weight: normal; letter-spacing: -1px; }
+        .hero-content h2 { font-size: 0.8rem; letter-spacing: 12px; text-transform: uppercase; margin-bottom: 20px; color: var(--orange); text-shadow: 2px 2px 10px rgba(0,0,0,0.5); }
+        .hero-content h1 { font-size: clamp(2.5rem, 8vw, 5.5rem); font-family: 'Georgia', serif; margin-bottom: 30px; font-weight: normal; font-style: italic; }
 
         .btn-luxury { 
             padding: 18px 45px; 
-            border: 1px solid var(--orange); 
+            border: 1px solid #fff; 
             color: #fff; 
             text-decoration: none; 
             text-transform: uppercase; 
             letter-spacing: 4px; 
             font-size: 0.7rem; 
             transition: 0.4s;
-            background: rgba(255, 95, 31, 0.1);
+            background: rgba(0,0,0,0.3);
         }
 
-        .btn-luxury:hover { background: var(--orange); color: #fff; }
+        .btn-luxury:hover { background: var(--orange); border-color: var(--orange); }
 
         .section { padding: 120px 10%; background: #000; }
         .section-label { font-size: 0.7rem; letter-spacing: 8px; text-transform: uppercase; color: var(--orange); margin-bottom: 60px; display: block; text-align: center; }
 
-        /* PRODUCT GALLERY GRID */
         .gallery-grid { 
             display: grid; 
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
-            gap: 20px; 
+            gap: 40px; 
         }
 
-        .product-card { background: #0a0a0a; padding-bottom: 30px; border: 1px solid #1a1a1a; transition: 0.4s; position: relative; overflow: hidden; }
+        .product-card { background: #000; border: 1px solid #1a1a1a; transition: 0.4s; overflow: hidden; }
         .product-card:hover { border-color: var(--orange); }
-        .product-img { width: 100%; height: 450px; background: #1a1a1a; object-fit: cover; margin-bottom: 20px; opacity: 0.8; }
-        .product-card h3 { font-size: 0.9rem; letter-spacing: 3px; text-transform: uppercase; text-align: center; margin-bottom: 10px; }
-        .product-card p { font-size: 0.7rem; color: #888; text-align: center; letter-spacing: 1px; }
+        .product-img { width: 100%; height: 500px; object-fit: cover; opacity: 0.9; transition: 0.5s; }
+        .product-card:hover .product-img { opacity: 1; transform: scale(1.02); }
+        
+        .product-info { padding: 25px; text-align: center; }
+        .product-info h3 { font-size: 0.9rem; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 10px; }
+        .product-info p { font-size: 0.7rem; color: #888; text-transform: uppercase; letter-spacing: 2px; }
 
-        footer { padding: 80px 5%; border-top: 1px solid #1a1a1a; text-align: center; background: #000; }
+        footer { padding: 80px 5%; border-top: 1px solid #1a1a1a; text-align: center; }
     </style>
 </head>
 <body>
@@ -96,9 +101,9 @@
     <img src="https://i.postimg.cc/mD8fT9jL/RAGS-LOGO.png" alt="RAGS LAGOS" class="logo-img">
     <nav>
         <ul>
-            <li>The Drop</li>
-            <li>Manifesto</li>
-            <li style="color: var(--orange);">Enter Kult</li>
+            <li><a href="#drop">The Drop</a></li>
+            <li><a href="#manifesto">Manifesto</a></li>
+            <li style="color: var(--orange); font-size: 0.65rem; letter-spacing: 3px; font-weight: bold;">KULT</li>
         </ul>
     </nav>
 </header>
@@ -107,33 +112,39 @@
     <div class="hero-content">
         <h2 class="reveal active">Lagos Made. Globally Approved.</h2>
         <h1 class="reveal active">Wear your becoming.</h1>
-        <a href="#drop" class="btn-luxury reveal active">View Collection</a>
+        <a href="#drop" class="btn-luxury reveal active">View the Drop</a>
     </div>
 </section>
 
 <section class="section" id="drop">
-    <span class="section-label">Latest Drop</span>
+    <span class="section-label">Selected Pieces</span>
     <div class="gallery-grid">
         <div class="product-card reveal">
-            <div class="product-img"></div> <h3>Rockstar RAGS Kult</h3>
-            <p>Signature Denim Series</p>
+            <img src="https://i.postimg.cc/908tYxJj/Whats-App-Image-2025-12-27-at-7-15-09-PM.jpg" class="product-img" alt="Rockstar RAGS">
+            <div class="product-info">
+                <h3>Rockstar RAGS Kult</h3>
+                <p>Limited Run • Premium Denim</p>
+            </div>
         </div>
         <div class="product-card reveal">
-            <div class="product-img"></div>
-            <h3>Ivory Dust</h3>
-            <p>Limited Edition Craft</p>
-        </div>
-        <div class="product-card reveal">
-            <div class="product-img"></div>
-            <h3>Ragron Dragon</h3>
-            <p>Hand-Finished Storytelling</p>
+            <div style="height: 500px; background: #0a0a0a; display: flex; align-items: center; justify-content: center; color: #333; font-size: 0.7rem; letter-spacing: 3px;">IMAGE PENDING</div>
+            <div class="product-info">
+                <h3>Dragon Series</h3>
+                <p>Coming Soon</p>
+            </div>
         </div>
     </div>
 </section>
 
+<section class="section" id="manifesto" style="border-top: 1px solid #1a1a1a;">
+    <span class="section-label">Identity</span>
+    <div style="max-width: 800px; margin: 0 auto; text-align: center;">
+        <h2 style="font-family: 'Georgia', serif; font-size: 2rem; font-style: italic; line-height: 1.5;">"RAGS is not for followers. It is for the ones becoming legends in real time."</h2>
+    </div>
+</section>
+
 <footer>
-    <img src="https://i.postimg.cc/mD8fT9jL/RAGS-LOGO.png" alt="RAGS LAGOS" style="height: 40px; margin-bottom: 20px; opacity: 0.5;">
-    <p style="letter-spacing: 5px; font-size: 0.6rem; opacity: 0.4;">© 2025 RAGS LAGOS. NOT FOR EVERYONE.</p>
+    <p style="letter-spacing: 5px; font-size: 0.6rem; opacity: 0.4;">© 2025 RAGS LAGOS. CRAFTED. NOT COPIED.</p>
 </footer>
 
 <script>
