@@ -3,78 +3,214 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RAGS LAGOS | Premium Denim</title>
+
+    <title>RAGS LAGOS — Premium Denim Fashion Brand | Lagos Made</title>
+
+    <meta name="description" content="RAGS Lagos is a premium Lagos-made denim brand crafting limited jeans and jackets for people becoming their fullest selves. Lagos made. Globally approved.">
+
     <style>
         :root { --orange: #FF5F1F; --navy: #000c1a; }
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Helvetica Neue', sans-serif; background-color: #000; color: #fff; line-height: 1.6; scroll-behavior: smooth; }
-        
-        header { 
-            background: rgba(0, 0, 0, 0.95); 
-            padding: 10px 5%; 
-            display: flex; justify-content: space-between; align-items: center; 
-            position: fixed; width: 100%; top: 0; z-index: 1000;
+
+        body {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            background-color: #000;
+            color: #fff;
+            line-height: 1.7;
+            scroll-behavior: smooth;
+        }
+
+        /* HEADER */
+        header {
+            background: rgba(0, 0, 0, 0.95);
+            padding: 12px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
             border-bottom: 1px solid #1a1a1a;
         }
-        .logo-img { height: 50px; width: auto; }
-        nav ul { list-style: none; display: flex; gap: 15px; align-items: center; }
-        nav ul li a { color: #fff; text-decoration: none; font-size: 0.55rem; text-transform: uppercase; letter-spacing: 2px; font-weight: bold; }
 
-        .hero { 
-            height: 95vh; display: flex; align-items: center; justify-content: center; text-align: center;
-            background: linear-gradient(rgba(0,0,0,0.65), rgba(0,0,0,0.75)), url('https://i.postimg.cc/L5jkrzkZ/IMG-5196.jpg');
-            background-size: cover; background-position: center;
+        .logo-img { height: 55px; width: auto; }
+
+        nav ul { list-style: none; display: flex; gap: 20px; align-items: center; }
+
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 0.6rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: bold;
         }
-        .hero h1 { font-size: clamp(3rem, 10vw, 6rem); font-family: 'Georgia', serif; font-style: italic; margin-bottom: 10px; text-transform: lowercase; font-weight: normal; }
 
-        .section { padding: 100px 5%; }
-        
-        .category-title { 
-            font-size: clamp(2rem, 8vw, 4rem); letter-spacing: 15px; text-align: center; color: #111; font-weight: 900; 
-            margin-bottom: 60px; border-bottom: 1px solid #111; padding-bottom: 20px;
+        /* HERO */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            background: linear-gradient(rgba(0,0,0,0.65), rgba(0,0,0,0.75)), url('https://i.postimg.cc/L5jkrzkZ/IMG-5196.jpg');
+            background-size: cover;
+            background-position: center;
+            padding: 0 5%;
+        }
+
+        .hero h1 {
+            font-size: clamp(2.8rem, 9vw, 6rem);
+            font-family: 'Georgia', serif;
+            font-style: italic;
+            margin-bottom: 12px;
+            text-transform: lowercase;
+            font-weight: normal;
+        }
+
+        .cta-row {
+            margin-top: 25px;
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .cta-btn {
+            border: 1px solid var(--orange);
+            padding: 10px 20px;
+            text-decoration: none;
+            color: var(--orange);
+            text-transform: uppercase;
+            font-size: 0.7rem;
+            letter-spacing: 2px;
+        }
+
+        /* SECTIONS */
+        .section { padding: 110px 5% 70px 5%; }
+
+        .category-title {
+            font-size: clamp(2rem, 8vw, 4rem);
+            letter-spacing: 12px;
+            text-align: center;
+            color: #fff;
+            font-weight: 900;
+            margin-bottom: 60px;
         }
 
         .collection-container { margin-bottom: 120px; }
-        .collection-title { font-family: 'Georgia', serif; font-size: 2.2rem; margin-bottom: 10px; text-align: left; padding-left: 5%; color: #fff; font-weight: normal; }
-        .collection-desc { font-size: 0.7rem; color: #666; margin-bottom: 40px; padding-left: 5%; letter-spacing: 2px; text-transform: uppercase; }
-        
-        .image-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; padding: 0 5%; }
-        .image-row img { width: 100%; height: 650px; object-fit: cover; border: 1px solid #1a1a1a; transition: 0.8s cubic-bezier(0.2, 1, 0.2, 1); filter: saturate(0.8); }
-        .image-row img:hover { border-color: var(--orange); transform: translateY(-10px); filter: saturate(1.1); }
 
+        .collection-title {
+            font-family: 'Georgia', serif;
+            font-size: 2.2rem;
+            margin-bottom: 8px;
+            color: #fff;
+            font-weight: normal;
+        }
+
+        .collection-desc {
+            font-size: 0.75rem;
+            color: #aaa;
+            margin-bottom: 36px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .image-row {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+        }
+
+        .image-row img {
+            width: 100%;
+            height: 600px;
+            object-fit: cover;
+            border: 1px solid #1a1a1a;
+            transition: 0.6s;
+            filter: saturate(0.85);
+        }
+
+        .image-row img:hover {
+            border-color: var(--orange);
+            transform: translateY(-8px);
+            filter: saturate(1.1);
+        }
+
+        /* ABOUT SECTION */
+        .about {
+            background: #020202;
+            padding: 120px 8%;
+            border-top: 1px solid #111;
+            border-bottom: 1px solid #111;
+        }
+
+        .about h2 {
+            font-family: 'Georgia', serif;
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            font-weight: normal;
+        }
+
+        .about p {
+            max-width: 900px;
+            font-size: 0.95rem;
+            color: #ccc;
+            margin-top: 10px;
+        }
+
+        /* WHATSAPP BUTTON */
         .wa-float {
-            position: fixed; width: 60px; height: 60px; bottom: 30px; right: 30px;
-            background-color: #25d366; border-radius: 50px; z-index: 2000; display: flex; align-items: center; justify-content: center; text-decoration: none;
+            position: fixed;
+            width: 60px;
+            height: 60px;
+            bottom: 30px;
+            right: 30px;
+            background-color: #25d366;
+            border-radius: 50px;
+            z-index: 2000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
             box-shadow: 0px 4px 15px rgba(0,0,0,0.5);
         }
+
         .wa-icon { width: 30px; height: 30px; }
 
-        .kult-signup { background: #000; padding: 150px 10%; text-align: center; border-top: 1px solid #111; }
-        .email-box { display: flex; max-width: 500px; margin: 40px auto; border: 1px solid #222; }
-        .email-box input { background: transparent; border: none; padding: 20px; color: #fff; flex: 1; outline: none; }
-        .email-box button { background: var(--orange); border: none; color: #fff; padding: 0 35px; text-transform: uppercase; font-weight: bold; cursor: pointer; }
-
-        .social-link { color: var(--orange); text-decoration: none; font-weight: bold; letter-spacing: 4px; font-size: 0.7rem; margin: 0 15px; }
-
-        footer { padding: 80px 5%; text-align: center; font-size: 0.6rem; color: #111; border-top: 1px solid #050505; letter-spacing: 4px; }
+        /* FOOTER */
+        footer {
+            padding: 80px 5%;
+            text-align: center;
+            font-size: 0.6rem;
+            color: #777;
+            border-top: 1px solid #050505;
+            letter-spacing: 3px;
+        }
 
         @media (max-width: 768px) {
-            .image-row { grid-template-columns: 1fr; gap: 30px; }
-            .image-row img { height: 500px; }
+            .image-row { grid-template-columns: 1fr; gap: 25px; }
+            .image-row img { height: 480px; }
+            header { padding: 8px 4%; }
         }
     </style>
 </head>
+
 <body>
 
+<!-- WhatsApp -->
 <a href="https://wa.me/2348166136524?text=Hello%20RAGS%20Lagos,%20I'm%20interested%20in%20the%20latest%20collection." class="wa-float" target="_blank">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp" class="wa-icon">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" class="wa-icon">
 </a>
 
 <header>
-    <img src="https://i.postimg.cc/mD8fT9jL/RAGS-LOGO.png" alt="RAGS LAGOS" class="logo-img">
+    <img src="https://i.postimg.cc/mD8fT9jL/RAGS-LOGO.png" alt="RAGS Lagos Logo" class="logo-img">
+
     <nav>
         <ul>
             <li><a href="#collections">Drops</a></li>
+            <li><a href="#about">About</a></li>
             <li><a href="https://instagram.com/ragslagos" target="_blank">IG</a></li>
             <li><a href="https://tiktok.com/@ragslagos" target="_blank">TT</a></li>
         </ul>
@@ -82,50 +218,60 @@
 </header>
 
 <section class="hero">
-    <div class="hero-content">
+    <div>
         <h1>wear your becoming.</h1>
-        <p style="letter-spacing: 10px; font-size: 0.7rem; color: var(--orange); text-transform: uppercase;">Lagos Made. Globally Approved.</p>
+        <p style="letter-spacing: 8px; font-size: 0.75rem; color: var(--orange); text-transform: uppercase;">
+            Lagos made. Globally approved.
+        </p>
+
+        <div class="cta-row">
+            <a href="#collections" class="cta-btn">View Drops</a>
+            <a href="https://wa.me/2348166136524" target="_blank" class="cta-btn">Order via WhatsApp</a>
+        </div>
     </div>
 </section>
 
-<section class="section" id="collections">
+<section id="collections" class="section">
     <h2 class="category-title">JEANS</h2>
 
     <div class="collection-container">
         <h2 class="collection-title">RAGS Sandstorm</h2>
-        <p class="collection-desc">Earth Tones. Limited Craft. Unapologetic Identity.</p>
+        <p class="collection-desc">Earth tones • limited craft • unapologetic identity</p>
+
         <div class="image-row">
-            <img src="https://i.postimg.cc/L5jkrzkZ/IMG-5196.jpg" alt="Sandstorm 1">
-            <img src="https://i.postimg.cc/RFkQsPt6/IMG-5321.jpg" alt="Sandstorm 2">
-            <img src="https://i.postimg.cc/FHwRJ2Xc/IMG-5316.jpg" alt="Sandstorm 3">
+            <img src="https://i.postimg.cc/L5jkrzkZ/IMG-5196.jpg">
+            <img src="https://i.postimg.cc/RFkQsPt6/IMG-5321.jpg">
+            <img src="https://i.postimg.cc/FHwRJ2Xc/IMG-5316.jpg">
         </div>
     </div>
 
     <div class="collection-container">
         <h2 class="collection-title">RAGS Rockstar</h2>
-        <p class="collection-desc">Premium Raw Denim. Signature Kult Series.</p>
+        <p class="collection-desc">Premium raw denim • signature Kult series</p>
+
         <div class="image-row">
-            <img src="https://i.postimg.cc/7hS1pg12/IMG-5392.jpg" alt="Rockstar 1">
-            <img src="https://i.postimg.cc/tJFdLhd1/IMG-5394.jpg" alt="Rockstar 2">
-            <img src="https://i.postimg.cc/nzyYRdmv/IMG-5398.jpg" alt="Rockstar 3">
+            <img src="https://i.postimg.cc/7hS1pg12/IMG-5392.jpg">
+            <img src="https://i.postimg.cc/tJFdLhd1/IMG-5394.jpg">
+            <img src="https://i.postimg.cc/nzyYRdmv/IMG-5398.jpg">
         </div>
     </div>
 </section>
 
-<section class="kult-signup" id="join">
-    <h2 style="font-family: 'Georgia', serif; font-size: 2.2rem; margin-bottom: 15px; font-weight: normal; letter-spacing: -1px;">Join the Kult</h2>
-    <div class="email-box">
-        <input type="email" placeholder="Email Address">
-        <button>Submit</button>
-    </div>
-    <div style="margin-top: 40px;">
-        <a href="https://instagram.com/ragslagos" target="_blank" class="social-link">IG</a>
-        <a href="https://tiktok.com/@ragslagos" target="_blank" class="social-link">TT</a>
-    </div>
+<section class="about" id="about">
+    <h2>About RAGS Lagos</h2>
+    <p>
+        RAGS Lagos was built for people in motion — builders, dreamers, late-night thinkers and early risers.
+        Every denim piece is crafted in Lagos with intention, grit and tenderness. We design for becoming:
+        the moment you grow out of who you were and into who you are meant to be.
+    </p>
+    <p>
+        Limited drops. No noise. Premium fabric. Culture-first storytelling. 
+        Not fast fashion — real garments with soul.
+    </p>
 </section>
 
 <footer>
-    <p>© 2025 RAGS LAGOS. FOR LEGENDS IN REAL TIME.</p>
+    © 2025 RAGS LAGOS — FOR LEGENDS IN REAL TIME
 </footer>
 
 </body>
