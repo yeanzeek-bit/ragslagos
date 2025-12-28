@@ -6,13 +6,14 @@
     <title>RAGS LAGOS | Premium Denim & Craft</title>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     
     <link rel="icon" type="image/png" href="https://i.postimg.cc/mD8fT9jL/RAGS-LOGO.png">
 
     <style>
         :root { --orange: #FF5F1F; --black: #000; --grey: #111; }
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Helvetica Neue', sans-serif; background-color: var(--black); color: #fff; line-height: 1.6; scroll-behavior: smooth; }
+        body { font-family: 'Helvetica Neue', sans-serif; background-color: var(--black); color: #fff; line-height: 1.6; scroll-behavior: smooth; overflow-x: hidden; }
         
         header { 
             background: rgba(0, 0, 0, 0.95); padding: 10px 5%; 
@@ -23,169 +24,62 @@
         .logo-img { height: 45px; width: auto; }
 
         nav ul { list-style: none; display: flex; gap: 15px; align-items: center; }
-        nav ul li a { 
-            color: #fff; text-decoration: none; font-size: 0.55rem; text-transform: uppercase; 
-            letter-spacing: 2px; font-weight: bold; transition: 0.3s;
-        }
-        
+        nav ul li a { color: #fff; text-decoration: none; font-size: 0.55rem; text-transform: uppercase; letter-spacing: 2px; font-weight: bold; transition: 0.3s; }
         nav ul li a:hover { color: var(--orange); }
-
-        .social-header i { font-size: 1.1rem; color: #fff; transition: 0.3s; }
-        .social-header i:hover { color: var(--orange); }
 
         .hero { 
             height: 95vh; display: flex; align-items: center; justify-content: center; text-align: center;
             background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.7)), url('https://i.postimg.cc/L5jkrzkZ/IMG-5196.jpg');
             background-size: cover; background-position: center;
-            padding-top: 80px;
         }
 
-        .hero h1 { 
-            font-size: clamp(3rem, 10vw, 6rem); 
-            font-family: 'Georgia', serif; 
-            font-style: italic; 
-            text-transform: lowercase; 
-        }
+        .hero h1 { font-size: clamp(3rem, 10vw, 6rem); font-family: 'Georgia', serif; font-style: italic; text-transform: lowercase; }
 
         .section { padding: 100px 8%; border-bottom: 1px solid #080808; }
-
-        .category-title { 
-            font-size: clamp(2rem, 8vw, 4.5rem); 
-            letter-spacing: 20px; 
-            text-align: center; 
-            color: var(--grey); 
-            font-weight: 900; 
-            margin-bottom: 80px; 
-            text-transform: uppercase;
-        }
+        .category-title { font-size: clamp(2rem, 8vw, 4.5rem); letter-spacing: 20px; text-align: center; color: var(--grey); font-weight: 900; margin-bottom: 80px; text-transform: uppercase; }
 
         .collection-container { margin-bottom: 120px; }
-
-        .collection-title { 
-            font-family: 'Georgia', serif; 
-            font-size: 2rem; 
-            margin-bottom: 10px; 
-            font-weight: normal; 
-        }
-
-        .collection-desc { 
-            font-size: 0.65rem; 
-            color: #777; 
-            margin-bottom: 35px; 
-            letter-spacing: 3px; 
-            text-transform: uppercase; 
-        }
+        .collection-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 30px; border-bottom: 1px solid #111; padding-bottom: 10px; }
+        .collection-title { font-family: 'Georgia', serif; font-size: 2rem; font-weight: normal; }
         
-        .image-row { 
-            display: grid; 
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); 
-            gap: 15px; 
-        }
+        /* SLIDER LOGIC */
+        .slider-container { display: flex; overflow-x: auto; gap: 20px; scroll-snap-type: x mandatory; padding-bottom: 20px; scrollbar-width: none; }
+        .slider-container::-webkit-scrollbar { display: none; }
+        .product-card { min-width: 350px; flex: 0 0 auto; scroll-snap-align: start; position: relative; }
 
-        .img-wrapper { 
-            overflow: hidden; 
-            border: 1px solid #1a1a1a; 
-            position: relative; 
-            background: #080808;
-        }
+        .img-wrapper { overflow: hidden; border: 1px solid #1a1a1a; position: relative; background: #080808; margin-bottom: 15px; }
+        .product-card img { width: 100%; height: 650px; object-fit: cover; transition: 1.2s cubic-bezier(0.25, 1, 0.5, 1); filter: saturate(0.9); display: block; }
+        .img-wrapper:hover img { transform: scale(1.1); filter: saturate(1.1); }
 
-        .image-row img { 
-            width: 100%; 
-            height: 650px; 
-            object-fit: cover; 
-            transition: 1.2s cubic-bezier(0.25, 1, 0.5, 1); 
-            filter: saturate(0.9); 
-            display: block;
-        }
+        .order-btn { display: inline-block; background: transparent; border: 1px solid #333; color: #fff; padding: 10px 20px; font-size: 0.6rem; text-transform: uppercase; letter-spacing: 2px; text-decoration: none; transition: 0.3s; width: 100%; text-align: center; }
+        .order-btn:hover { background: #fff; color: #000; border-color: #fff; }
 
-        .img-wrapper:hover img { 
-            transform: scale(1.1); 
-            filter: saturate(1.1); 
-        }
+        /* MODAL */
+        .size-guide-trigger { font-size: 0.55rem; color: #555; text-decoration: underline; cursor: pointer; text-transform: uppercase; letter-spacing: 1px; }
+        .modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); display: none; justify-content: center; align-items: center; z-index: 3000; }
+        .modal-content { background: #050505; border: 1px solid #222; padding: 40px; max-width: 500px; width: 90%; position: relative; }
+        .close-modal { position: absolute; top: 20px; right: 20px; color: #fff; font-size: 1.5rem; cursor: pointer; }
 
-        .stock-tag {
-            position: absolute; top: 15px; right: 15px;
-            background: rgba(0,0,0,0.85); color: var(--orange);
-            font-size: 0.5rem; letter-spacing: 2px; padding: 6px 14px;
-            text-transform: uppercase; font-weight: bold; border: 1px solid var(--orange);
-            z-index: 10;
-        }
+        .stock-tag { position: absolute; top: 15px; right: 15px; background: rgba(0,0,0,0.85); color: var(--orange); font-size: 0.5rem; letter-spacing: 2px; padding: 6px 14px; text-transform: uppercase; font-weight: bold; border: 1px solid var(--orange); z-index: 10; }
 
-        .kult-signup {
-            background: #050505;
-            padding: 100px 8%;
-            text-align: center;
-            border-top: 1px solid #111;
-        }
+        .kult-signup { background: #050505; padding: 100px 8%; text-align: center; border-top: 1px solid #111; }
+        .kult-signup h2 { font-family: 'Georgia', serif; font-size: 2.5rem; margin-bottom: 20px; font-style: italic; color: var(--orange); }
+        .signup-form { max-width: 500px; margin: 40px auto; display: flex; gap: 10px; }
+        .signup-form input { flex: 1; background: transparent; border: 1px solid #222; padding: 15px; color: #fff; font-size: 0.8rem; letter-spacing: 2px; outline: none; }
+        .signup-form button { background: var(--orange); color: #000; border: none; padding: 0 30px; font-weight: bold; text-transform: uppercase; cursor: pointer; }
 
-        .kult-signup h2 { font-family: 'Georgia', serif; font-size: 2.5rem; margin-bottom: 20px; font-style: italic; }
-        
-        .signup-form {
-            max-width: 500px;
-            margin: 40px auto;
-            display: flex;
-            gap: 10px;
-        }
-
-        .signup-form input {
-            flex: 1;
-            background: transparent;
-            border: 1px solid #222;
-            padding: 15px;
-            color: #fff;
-            font-size: 0.8rem;
-            letter-spacing: 2px;
-            outline: none;
-        }
-
-        .signup-form button {
-            background: var(--orange);
-            color: #000;
-            border: none;
-            padding: 0 30px;
-            font-weight: bold;
-            text-transform: uppercase;
-            font-size: 0.7rem;
-            letter-spacing: 2px;
-            cursor: pointer;
-            transition: 0.3s;
-        }
-
-        .signup-form button:hover { background: #fff; }
-
-        .manifesto-box { max-width: 900px; margin: 0 auto; text-align: center; }
-        .manifesto-text { font-family: 'Georgia', serif; font-size: 1.4rem; font-style: italic; color: #ccc; margin-bottom: 60px; }
-        .commandments-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; text-align: left; }
-        .cmd-item { border-left: 2px solid var(--orange); padding-left: 20px; }
-        .cmd-item span { color: var(--orange); font-weight: bold; font-size: 0.8rem; display: block; }
-        .cmd-item p { font-size: 0.85rem; color: #bbb; }
-
-        .wa-float { position: fixed; width: 60px; height: 60px; bottom: 30px; right: 30px; background-color: #25d366; border-radius: 50px; z-index: 2000; display: flex; align-items: center; justify-content: center; box-shadow: 0 5px 15px rgba(0,0,0,0.5); }
-        .wa-icon { width: 32px; height: 32px; }
-
-        footer { 
-            padding: 60px 5%; 
-            text-align: center; 
-            font-size: 0.6rem; 
-            color: #777; 
-            letter-spacing: 4px; 
-            border-top: 1px solid #050505; 
-        }
+        footer { padding: 60px 5%; text-align: center; font-size: 0.6rem; color: #777; letter-spacing: 4px; border-top: 1px solid #050505; }
+        .footer-links { margin-top: 15px; display: flex; justify-content: center; gap: 20px; }
+        .footer-links a { color: #333; text-decoration: none; font-size: 0.5rem; text-transform: uppercase; }
 
         @media (max-width: 768px) {
-            .commandments-grid { grid-template-columns: 1fr; }
-            .image-row img { height: 420px; }
+            .product-card { min-width: 85%; }
             .signup-form { flex-direction: column; }
             .signup-form button { padding: 15px; }
         }
     </style>
 </head>
-
 <body>
-
-<a href="https://wa.me/2348166136524?text=Hello%20RAGS%20Lagos,%20I'm%20interested%20in%20the%20latest%20pieces." class="wa-float" target="_blank">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp" class="wa-icon">
-</a>
 
 <header>
     <img src="https://i.postimg.cc/mD8fT9jL/RAGS-LOGO.png" alt="RAGS LAGOS" class="logo-img">
@@ -195,198 +89,167 @@
             <li><a href="#handbags">Bags</a></li>
             <li><a href="#hoodies">Hoodies</a></li>
             <li><a href="#athletics">Athletics</a></li>
-            <li class="social-header"><a href="https://instagram.com/ragslagos" target="_blank"><i class="fab fa-instagram"></i></a></li>
-            <li class="social-header"><a href="https://tiktok.com/@ragslagos" target="_blank"><i class="fab fa-tiktok"></i></a></li>
         </ul>
     </nav>
 </header>
 
 <section class="hero">
-    <div class="hero-content">
+    <div class="hero-content" data-aos="fade-up">
         <h1>wear your becoming.</h1>
         <p style="letter-spacing: 10px; font-size: 0.7rem; color: var(--orange); text-transform: uppercase;">Lagos Made. Globally Approved.</p>
     </div>
 </section>
 
 <section class="section" id="jeans">
-    <h2 class="category-title">Jeans</h2>
+    <h2 class="category-title" data-aos="fade-down">Jeans</h2>
 
-    <div class="collection-container">
-        <h2 class="collection-title">RAGS Sandstorm</h2>
-        <div class="image-row">
-            <div class="img-wrapper"><img src="https://i.postimg.cc/L5jkrzkZ/IMG-5196.jpg"></div>
-            <div class="img-wrapper"><img src="https://i.postimg.cc/RFkQsPt6/IMG-5321.jpg"></div>
-            <div class="img-wrapper"><img src="https://i.postimg.cc/FHwRJ2Xc/IMG-5316.jpg"></div>
+    <div class="collection-container" data-aos="fade-up">
+        <div class="collection-header">
+            <h2 class="collection-title">RAGS Sandstorm</h2>
+            <span class="size-guide-trigger" onclick="openModal()">Size Guide</span>
+        </div>
+        <div class="slider-container">
+            <div class="product-card">
+                <div class="img-wrapper"><img src="https://i.postimg.cc/L5jkrzkZ/IMG-5196.jpg"></div>
+                <a href="https://wa.me/2348166136524?text=Request%20to%20Order:%20Sandstorm%20Jeans" class="order-btn">Direct Order</a>
+            </div>
+            <div class="product-card"><div class="img-wrapper"><img src="https://i.postimg.cc/RFkQsPt6/IMG-5321.jpg"></div><a href="https://wa.me/2348166136524?text=Order:%20Sandstorm%20Jeans" class="order-btn">Direct Order</a></div>
+            <div class="product-card"><div class="img-wrapper"><img src="https://i.postimg.cc/FHwRJ2Xc/IMG-5316.jpg"></div><a href="https://wa.me/2348166136524?text=Order:%20Sandstorm%20Jeans" class="order-btn">Direct Order</a></div>
         </div>
     </div>
 
-    <div class="collection-container">
+    <div class="collection-container" data-aos="fade-up">
         <h2 class="collection-title">RAGS Rockstar</h2>
-        <div class="image-row">
-            <div class="img-wrapper"><img src="https://i.postimg.cc/7hS1pg12/IMG-5392.jpg"></div>
-            <div class="img-wrapper"><img src="https://i.postimg.cc/tJFdLhd1/IMG-5394.jpg"></div>
-            <div class="img-wrapper"><img src="https://i.postimg.cc/nzyYRdmv/IMG-5398.jpg"></div>
+        <div class="slider-container">
+            <div class="product-card"><div class="img-wrapper"><img src="https://i.postimg.cc/7hS1pg12/IMG-5392.jpg"></div><a href="https://wa.me/2348166136524?text=Order:%20Rockstar%20Jeans" class="order-btn">Direct Order</a></div>
+            <div class="product-card"><div class="img-wrapper"><img src="https://i.postimg.cc/tJFdLhd1/IMG-5394.jpg"></div><a href="https://wa.me/2348166136524?text=Order:%20Rockstar%20Jeans" class="order-btn">Direct Order</a></div>
+            <div class="product-card"><div class="img-wrapper"><img src="https://i.postimg.cc/nzyYRdmv/IMG-5398.jpg"></div><a href="https://wa.me/2348166136524?text=Order:%20Rockstar%20Jeans" class="order-btn">Direct Order</a></div>
         </div>
     </div>
 
-    <div class="collection-container">
+    <div class="collection-container" data-aos="fade-up">
         <h2 class="collection-title">RAGS dRAGony</h2>
-        <div class="image-row">
-            <div class="img-wrapper"><div class="stock-tag">Out of Stock</div><img src="https://i.postimg.cc/6p5zMrhq/IMG_5637.png"></div>
-            <div class="img-wrapper"><div class="stock-tag">Out of Stock</div><img src="https://i.postimg.cc/g2k4gVKp/IMG_5635.jpg"></div>
-            <div class="img-wrapper"><div class="stock-tag">Out of Stock</div><img src="https://i.postimg.cc/XY7xsfgv/IMG_5638.png"></div>
+        <div class="slider-container">
+            <div class="product-card">
+                <div class="img-wrapper"><div class="stock-tag">Out of Stock</div><img src="https://i.postimg.cc/6p5zMrhq/IMG_5637.png"></div>
+            </div>
+            <div class="product-card">
+                <div class="img-wrapper"><div class="stock-tag">Out of Stock</div><img src="https://i.postimg.cc/g2k4gVKp/IMG_5635.jpg"></div>
+            </div>
+            <div class="product-card">
+                <div class="img-wrapper"><div class="stock-tag">Out of Stock</div><img src="https://i.postimg.cc/XY7xsfgv/IMG_5638.png"></div>
+            </div>
         </div>
     </div>
 
-    <div class="collection-container">
+    <div class="collection-container" data-aos="fade-up">
         <h2 class="collection-title">RAGS Bum Shorts</h2>
-        <div class="image-row">
-            <div class="img-wrapper"><img src="https://i.postimg.cc/WpgC8s7z/IMG-5651.jpg"></div>
-            <div class="img-wrapper"><img src="https://i.postimg.cc/y6ctj7Td/IMG-5652.jpg"></div>
-            <div class="img-wrapper"><img src="https://i.postimg.cc/Y2YZRtxv/IMG-5653.jpg"></div>
-            <div class="img-wrapper"><img src="https://i.postimg.cc/PfY9ydM5/IMG-5654.jpg"></div>
-            <div class="img-wrapper"><img src="https://i.postimg.cc/xjMh59Pd/IMG-5657.jpg"></div>
+        <div class="slider-container">
+            <div class="product-card"><div class="img-wrapper"><img src="https://i.postimg.cc/WpgC8s7z/IMG-5651.jpg"></div><a href="https://wa.me/2348166136524?text=Order:%20Bum%20Shorts" class="order-btn">Direct Order</a></div>
+            <div class="product-card"><div class="img-wrapper"><img src="https://i.postimg.cc/y6ctj7Td/IMG-5652.jpg"></div></div>
+            <div class="product-card"><div class="img-wrapper"><img src="https://i.postimg.cc/Y2YZRtxv/IMG-5653.jpg"></div></div>
+            <div class="product-card"><div class="img-wrapper"><img src="https://i.postimg.cc/PfY9ydM5/IMG-5654.jpg"></div></div>
+            <div class="product-card"><div class="img-wrapper"><img src="https://i.postimg.cc/xjMh59Pd/IMG-5657.jpg"></div></div>
         </div>
     </div>
 </section>
 
 <section class="section" id="athletics">
-    <h2 class="category-title">Athletics</h2>
-    <div class="collection-container">
+    <h2 class="category-title" data-aos="fade-up">Athletics</h2>
+    <div class="collection-container" data-aos="fade-up">
         <h2 class="collection-title">Vanguard Jersey</h2>
-        <div class="image-row">
-            <div class="img-wrapper"><img src="https://i.postimg.cc/G3y2V6pb/4FDBFDBF_4B7C_451D_B00C_551C1A431F6C.jpg"></div>
-            <div class="img-wrapper"><img src="https://i.postimg.cc/sfhXqb22/83B3427E_BB88_4CEB_A000_B229A9103640.jpg"></div>
-            <div class="img-wrapper"><img src="https://i.postimg.cc/bYtJW4vG/IMG_5645.png"></div>
-            <div class="img-wrapper"><img src="https://i.postimg.cc/XNCJmtvq/B2B83ED6_4C75_4934_886E_B40723931890.jpg"></div>
+        <div class="slider-container">
+            <div class="product-card"><div class="img-wrapper"><img src="https://i.postimg.cc/G3y2V6pb/4FDBFDBF_4B7C_451D_B00C_551C1A431F6C.jpg"></div><a href="https://wa.me/2348166136524?text=Order:%20Vanguard%20Jersey" class="order-btn">Direct Order</a></div>
+            <div class="product-card"><div class="img-wrapper"><img src="https://i.postimg.cc/sfhXqb22/83B3427E_BB88_4CEB_A000_B229A9103640.jpg"></div></div>
+            <div class="product-card"><div class="img-wrapper"><img src="https://i.postimg.cc/bYtJW4vG/IMG_5645.png"></div></div>
+            <div class="product-card"><div class="img-wrapper"><img src="https://i.postimg.cc/XNCJmtvq/B2B83ED6_4C75_4934_886E_B40723931890.jpg"></div></div>
         </div>
     </div>
 </section>
 
 <section class="section" id="hoodies">
-    <h2 class="category-title">Outerwear</h2>
-    <div class="collection-container">
+    <h2 class="category-title" data-aos="fade-up">Outerwear</h2>
+    <div class="collection-container" data-aos="fade-up">
         <h2 class="collection-title">RAGS Origami</h2>
-        <p class="collection-desc">Avant-Garde Drape Collection</p>
-        <div class="image-row">
-            <div class="img-wrapper"><img src="https://i.postimg.cc/m2RLNXCv/IMG-5271.jpg"></div>
-            <div class="img-wrapper"><img src="https://i.postimg.cc/65wWLjnm/IMG-5272.jpg"></div>
-            <div class="img-wrapper"><img src="https://i.postimg.cc/9FVmt8ZN/IMG-5273.jpg"></div>
-            <div class="img-wrapper"><img src="https://i.postimg.cc/sDyj967n/IMG-5274.jpg"></div>
-            <div class="img-wrapper"><img src="https://i.postimg.cc/NfYs7Jmp/IMG-5275.jpg"></div>
-            <div class="img-wrapper"><img src="https://i.postimg.cc/jdKxQgP4/IMG-5276.jpg"></div>
-            <div class="img-wrapper"><img src="https://i.postimg.cc/ZKZbF7pF/IMG-5277.jpg"></div>
-            <div class="img-wrapper"><img src="https://i.postimg.cc/YqkrfnYN/IMG-5278.jpg"></div>
-            <div class="img-wrapper"><img src="https://i.postimg.cc/TYGdq7gc/IMG-5279.jpg"></div>
+        <div class="slider-container">
+            <div class="product-card"><div class="img-wrapper"><img src="https://i.postimg.cc/m2RLNXCv/IMG-5271.jpg"></div><a href="https://wa.me/2348166136524?text=Order:%20Origami%20Denim" class="order-btn">Direct Order</a></div>
+            <div class="product-card"><div class="img-wrapper"><img src="https://i.postimg.cc/65wWLjnm/IMG-5272.jpg"></div></div>
+            <div class="product-card"><div class="img-wrapper"><img src="https://i.postimg.cc/9FVmt8ZN/IMG-5273.jpg"></div></div>
+            <div class="product-card"><div class="img-wrapper"><img src="https://i.postimg.cc/sDyj967n/IMG-5274.jpg"></div></div>
+            <div class="product-card"><div class="img-wrapper"><img src="https://i.postimg.cc/NfYs7Jmp/IMG-5275.jpg"></div></div>
+            <div class="product-card"><div class="img-wrapper"><img src="https://i.postimg.cc/jdKxQgP4/IMG-5276.jpg"></div></div>
+            <div class="product-card"><div class="img-wrapper"><img src="https://i.postimg.cc/ZKZbF7pF/IMG-5277.jpg"></div></div>
+            <div class="product-card"><div class="img-wrapper"><img src="https://i.postimg.cc/YqkrfnYN/IMG-5278.jpg"></div></div>
+            <div class="product-card"><div class="img-wrapper"><img src="https://i.postimg.cc/TYGdq7gc/IMG-5279.jpg"></div></div>
         </div>
     </div>
-    <div class="collection-container">
+    <div class="collection-container" data-aos="fade-up">
         <h2 class="collection-title">RAGS zero Hoodies</h2>
-        <p class="collection-desc">The Essential Series</p>
-        <div class="image-row">
-            <div class="img-wrapper"><img src="https://i.postimg.cc/xj5yn7f5/IMG-5160.jpg"></div>
-            <div class="img-wrapper"><img src="https://i.postimg.cc/c1hM0jxX/IMG-5161.jpg"></div>
-            <div class="img-wrapper"><img src="https://i.postimg.cc/vHm7BzTW/IMG-5162.jpg"></div>
-            <div class="img-wrapper"><img src="https://i.postimg.cc/Y2RfMVr8/IMG-5163.jpg"></div>
-            <div class="img-wrapper"><img src="https://i.postimg.cc/HWz4dKYt/IMG-5164.jpg"></div>
+        <div class="slider-container">
+            <div class="product-card"><div class="img-wrapper"><img src="https://i.postimg.cc/xj5yn7f5/IMG-5160.jpg"></div><a href="https://wa.me/2348166136524?text=Order:%20Zero%20Hoodie" class="order-btn">Direct Order</a></div>
+            <div class="product-card"><div class="img-wrapper"><img src="https://i.postimg.cc/c1hM0jxX/IMG-5161.jpg"></div></div>
+            <div class="product-card"><div class="img-wrapper"><img src="https://i.postimg.cc/vHm7BzTW/IMG-5162.jpg"></div></div>
+            <div class="product-card"><div class="img-wrapper"><img src="https://i.postimg.cc/Y2RfMVr8/IMG-5163.jpg"></div></div>
+            <div class="product-card"><div class="img-wrapper"><img src="https://i.postimg.cc/HWz4dKYt/IMG-5164.jpg"></div></div>
         </div>
     </div>
-    <div class="collection-container">
+    <div class="collection-container" data-aos="fade-up">
         <h2 class="collection-title">RAGS Jean Jacket</h2>
-        <p class="collection-desc">Men's Premium Cut</p>
-        <div class="image-row">
-            <div class="img-wrapper"><img src="https://i.postimg.cc/BvLnyWj8/IMG-4936.jpg"></div>
-            <div class="img-wrapper"><img src="https://i.postimg.cc/vmJZwPnQ/IMG-4961.jpg"></div>
-            <div class="img-wrapper"><img src="https://i.postimg.cc/xdw1Vsmn/IMG-4974.jpg"></div>
-            <div class="img-wrapper"><img src="https://i.postimg.cc/fbGRQHdM/IMG-4983.jpg"></div>
-        </div>
-    </div>
-    <div class="collection-container">
-        <h2 class="collection-title">RAGS Solace Jumpsuits</h2>
-        <p class="collection-desc">Women's Identity Series</p>
-        <div class="image-row">
-            <div class="img-wrapper"><img src="https://i.postimg.cc/cJsWNV9p/IMG_5301.jpg"></div>
-            <div class="img-wrapper"><img src="https://i.postimg.cc/g0YpPftb/IMG_5302.jpg"></div>
-            <div class="img-wrapper"><img src="https://i.postimg.cc/7Lx4yptv/IMG_5304.jpg"></div>
+        <div class="slider-container">
+            <div class="product-card"><div class="img-wrapper"><img src="https://i.postimg.cc/BvLnyWj8/IMG-4936.jpg"></div><a href="https://wa.me/2348166136524?text=Order:%20Jean%20Jacket" class="order-btn">Direct Order</a></div>
+            <div class="product-card"><div class="img-wrapper"><img src="https://i.postimg.cc/vmJZwPnQ/IMG-4961.jpg"></div></div>
+            <div class="product-card"><div class="img-wrapper"><img src="https://i.postimg.cc/xdw1Vsmn/IMG-4974.jpg"></div></div>
+            <div class="product-card"><div class="img-wrapper"><img src="https://i.postimg.cc/fbGRQHdM/IMG-4983.jpg"></div></div>
         </div>
     </div>
 </section>
 
 <section class="section">
-    <h2 class="category-title">Accessories</h2>
-    <div class="collection-container">
+    <h2 class="category-title" data-aos="fade-up">Accessories</h2>
+    <div class="collection-container" data-aos="fade-up">
         <h2 class="collection-title">RAGS Belts</h2>
-        <p class="collection-desc">Signature Denim Craft</p>
-        <div class="image-row">
-            <div class="img-wrapper"><img src="https://i.postimg.cc/VLjF26Sd/IMG-4556.jpg"></div>
-            <div class="img-wrapper"><img src="https://i.postimg.cc/8Phbx5Fz/IMG-4557.jpg"></div>
-            <div class="img-wrapper"><img src="https://i.postimg.cc/9FGBsM4D/IMG-4558.jpg"></div>
-            <div class="img-wrapper"><img src="https://i.postimg.cc/fRDvsNXb/IMG-4559.jpg"></div>
-            <div class="img-wrapper"><img src="https://i.postimg.cc/RVcT2F3H/IMG-4560.jpg"></div>
-            <div class="img-wrapper"><img src="https://i.postimg.cc/7YgNj6CJ/IMG-4561.jpg"></div>
-            <div class="img-wrapper"><img src="https://i.postimg.cc/bwpRPhbw/IMG-4562.jpg"></div>
-            <div class="img-wrapper"><img src="https://i.postimg.cc/9QCB2hTM/IMG-4563.jpg"></div>
-            <div class="img-wrapper"><img src="https://i.postimg.cc/NjBxtcTL/IMG-4564.jpg"></div>
+        <div class="slider-container">
+            <div class="product-card"><div class="img-wrapper"><img src="https://i.postimg.cc/VLjF26Sd/IMG-4556.jpg"></div><a href="https://wa.me/2348166136524?text=Order:%20Denim%20Belt" class="order-btn">Direct Order</a></div>
+            <div class="product-card"><div class="img-wrapper"><img src="https://i.postimg.cc/8Phbx5Fz/IMG-4557.jpg"></div></div>
+            <div class="product-card"><div class="img-wrapper"><img src="https://i.postimg.cc/9FGBsM4D/IMG-4558.jpg"></div></div>
+            <div class="product-card"><div class="img-wrapper"><img src="https://i.postimg.cc/fRDvsNXb/IMG-4559.jpg"></div></div>
+            <div class="product-card"><div class="img-wrapper"><img src="https://i.postimg.cc/RVcT2F3H/IMG-4560.jpg"></div></div>
+            <div class="product-card"><div class="img-wrapper"><img src="https://i.postimg.cc/7YgNj6CJ/IMG-4561.jpg"></div></div>
+            <div class="product-card"><div class="img-wrapper"><img src="https://i.postimg.cc/bwpRPhbw/IMG-4562.jpg"></div></div>
+            <div class="product-card"><div class="img-wrapper"><img src="https://i.postimg.cc/9QCB2hTM/IMG-4563.jpg"></div></div>
+            <div class="product-card"><div class="img-wrapper"><img src="https://i.postimg.cc/NjBxtcTL/IMG-4564.jpg"></div></div>
         </div>
     </div>
 </section>
 
 <section class="section" id="handbags">
-    <h2 class="category-title">Handbags</h2>
-    <div class="collection-container">
+    <h2 class="category-title" data-aos="fade-up">Handbags</h2>
+    <div class="collection-container" data-aos="fade-up">
         <h2 class="collection-title">Premium Edition</h2>
-        <div class="image-row">
-            <div class="img-wrapper"><img src="https://i.postimg.cc/9QtwSKJR/IMG-5280.jpg"></div>
-            <div class="img-wrapper"><img src="https://i.postimg.cc/qvX6YSjg/IMG-5281.jpg"></div>
-            <div class="img-wrapper"><img src="https://i.postimg.cc/FHgkq8DY/IMG-5282.jpg"></div>
-            <div class="img-wrapper"><img src="https://i.postimg.cc/9QtwSKJY/IMG-5283.jpg"></div>
-            <div class="img-wrapper"><img src="https://i.postimg.cc/KYG3yfH3/IMG-5284.jpg"></div>
-            <div class="img-wrapper"><img src="https://i.postimg.cc/mgN1qJ8S/IMG-5285.jpg"></div>
-            <div class="img-wrapper"><img src="https://i.postimg.cc/sg9G8qw9/IMG-5286.jpg"></div>
-            <div class="img-wrapper"><img src="https://i.postimg.cc/x1yN7htL/IMG-5287.jpg"></div>
-            <div class="img-wrapper"><img src="https://i.postimg.cc/zGSHM60L/IMG-5288.jpg"></div>
-        </div>
-    </div>
-    <div class="collection-container">
-        <h2 class="collection-title">Street Edition</h2>
-        <div class="image-row">
-            <div class="img-wrapper"><img src="https://i.postimg.cc/G358Xj7Y/IMG-4547.jpg"></div>
-            <div class="img-wrapper"><img src="https://i.postimg.cc/44S7W1Lc/IMG-4548.jpg"></div>
-            <div class="img-wrapper"><img src="https://i.postimg.cc/CMQBc4Pq/IMG-4549.jpg"></div>
-            <div class="img-wrapper"><img src="https://i.postimg.cc/KcHk05qD/IMG-4550.jpg"></div>
-            <div class="img-wrapper"><img src="https://i.postimg.cc/mZ5zmSXC/IMG-4551.jpg"></div>
-            <div class="img-wrapper"><img src="https://i.postimg.cc/2jKb0xcx/IMG-4552.jpg"></div>
-            <div class="img-wrapper"><img src="https://i.postimg.cc/2jKb0xc0/IMG-4553.jpg"></div>
-            <div class="img-wrapper"><img src="https://i.postimg.cc/bYBDmRCL/IMG-4554.jpg"></div>
-            <div class="img-wrapper"><img src="https://i.postimg.cc/7PWGKNs9/IMG-4555.jpg"></div>
+        <div class="slider-container">
+            <div class="product-card"><div class="img-wrapper"><img src="https://i.postimg.cc/9QtwSKJR/IMG-5280.jpg"></div><a href="https://wa.me/2348166136524?text=Order:%20Premium%20Bag" class="order-btn">Direct Order</a></div>
+            <div class="product-card"><div class="img-wrapper"><img src="https://i.postimg.cc/qvX6YSjg/IMG-5281.jpg"></div></div>
+            <div class="product-card"><div class="img-wrapper"><img src="https://i.postimg.cc/FHgkq8DY/IMG-5282.jpg"></div></div>
+            <div class="product-card"><div class="img-wrapper"><img src="https://i.postimg.cc/9QtwSKJY/IMG-5283.jpg"></div></div>
+            <div class="product-card"><div class="img-wrapper"><img src="https://i.postimg.cc/KYG3yfH3/IMG-5284.jpg"></div></div>
+            <div class="product-card"><div class="img-wrapper"><img src="https://i.postimg.cc/mgN1qJ8S/IMG-5285.jpg"></div></div>
+            <div class="product-card"><div class="img-wrapper"><img src="https://i.postimg.cc/sg9G8qw9/IMG-5286.jpg"></div></div>
+            <div class="product-card"><div class="img-wrapper"><img src="https://i.postimg.cc/x1yN7htL/IMG-5287.jpg"></div></div>
+            <div class="product-card"><div class="img-wrapper"><img src="https://i.postimg.cc/zGSHM60L/IMG-5288.jpg"></div></div>
         </div>
     </div>
 </section>
 
-<section class="section">
-    <h2 class="category-title">Headwear</h2>
-    <div class="collection-container">
-        <h2 class="collection-title">RAGS Jucket Hats</h2>
-        <div class="image-row">
-            <div class="img-wrapper"><img src="https://i.postimg.cc/15BFtL1Y/IMG_5262.jpg"></div>
-            <div class="img-wrapper"><img src="https://i.postimg.cc/6pQvGYBV/IMG_5263.jpg"></div>
-            <div class="img-wrapper"><img src="https://i.postimg.cc/RVdtFjxp/IMG_5264.jpg"></div>
-            <div class="img-wrapper"><img src="https://i.postimg.cc/TY0bwZv4/IMG_5265.jpg"></div>
-        </div>
-    </div>
-</section>
-
-<section class="kult-signup">
-    <h2>join the kult.</h2>
+<section class="kult-signup" data-aos="fade-in">
+    <h2>become the kult.</h2>
     <p style="letter-spacing: 5px; font-size: 0.6rem; text-transform: uppercase; color: #444;">Early Drop Access Only.</p>
-    
     <form class="signup-form" action="https://formspree.io/f/xeeqkkna" method="POST">
         <input type="email" name="email" placeholder="ENTER YOUR EMAIL" required>
         <button type="submit">JOIN</button>
     </form>
 </section>
 
-<section class="section" id="manifesto">
+<section class="section" id="manifesto" data-aos="fade-up">
     <div class="manifesto-box">
         <h2 class="category-title" style="border:none;">The Manifesto</h2>
         <p class="manifesto-text">"RAGS Lagos was built for people who refuse to shrink themselves. Inspired by Lagos grit and global dreams — the ones who create their own lane and wear their identity like armor."</p>
@@ -404,25 +267,47 @@
     </div>
 </section>
 
+<div class="modal" id="sizeModal">
+    <div class="modal-content">
+        <span class="close-modal" onclick="closeModal()">&times;</span>
+        <h2 style="font-family: 'Georgia', serif; margin-bottom: 20px;">Size Guide</h2>
+        <p style="font-size: 0.8rem; color: #999;">Premium cut. Stay true to size for a signature look, or size up for relaxed.</p>
+        <table style="width:100%; margin-top:20px; border-collapse:collapse; font-size:0.7rem; color:#fff;">
+            <tr style="border-bottom:1px solid #222;"><td style="padding:10px;">Waist</td><td style="padding:10px;">28 - 38</td></tr>
+            <tr style="border-bottom:1px solid #222;"><td style="padding:10px;">Length</td><td style="padding:10px;">Standard / Tailored</td></tr>
+        </table>
+    </div>
+</div>
+
 <footer>
-    © RAGS LAGOS — Wear Your Becoming
+    <p>© 2025 RAGS LAGOS — Wear Your Becoming</p>
+    <div class="footer-links">
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms of Service</a>
+    </div>
 </footer>
 
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 <script>
-  const form = document.querySelector('.signup-form');
-  form.onsubmit = async (e) => {
-    e.preventDefault();
-    const data = new FormData(form);
-    const response = await fetch(form.action, {
-      method: 'POST',
-      body: data,
-      headers: { 'Accept': 'application/json' }
-    });
-    if (response.ok) {
-      alert("Welcome to the Kult. You're on the list.");
-      form.reset();
-    }
-  };
+    AOS.init({ duration: 1000, once: true });
+
+    function openModal() { document.getElementById('sizeModal').style.display = 'flex'; }
+    function closeModal() { document.getElementById('sizeModal').style.display = 'none'; }
+
+    const form = document.querySelector('.signup-form');
+    form.onsubmit = async (e) => {
+        e.preventDefault();
+        const data = new FormData(form);
+        const response = await fetch(form.action, {
+            method: 'POST',
+            body: data,
+            headers: { 'Accept': 'application/json' }
+        });
+        if (response.ok) {
+            alert("Accepted. Welcome to the Kult.");
+            form.reset();
+        }
+    };
 </script>
 
 </body>
